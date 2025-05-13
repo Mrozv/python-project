@@ -54,3 +54,35 @@ def edit_book():
 
     print("✅ Książka została zaktualizowana.")
 
+from students import students  # potrzebne do sprawdzania wypożyczeń
+
+def delete_book():
+    if not books:
+        print("📭 Brak książek do usunięcia.")
+        return
+
+    list_books()
+    try:
+        book_id = int(input("\nPodaj ID książki do usunięcia: "))
+    except ValueError:
+        print("❌ Błąd: ID musi być liczbą.")
+        return
+
+    book = next((b for b in books if b.id == book_id), None)
+    if not book:
+        print("❌ Nie znaleziono książki.")
+        return
+
+    # Sprawdź, czy książka jest wypożyczona przez jakiegoś studenta
+    borrowed_by_any = any(book_id in s.borrowed_books for s in students)
+    if borrowed_by_any:
+        print("❌ Nie można usunąć książki – jest aktualnie wypożyczona.")
+        return
+
+    confirm = input(f"Na pewno chcesz usunąć \"{book.title}\"? (t/n): ").strip().lower()
+    if confirm == 't':
+        books.remove(book)
+        print("✅ Książka została usunięta.")
+    else:
+        print("⛔ Usuwanie anulowane.")
+
