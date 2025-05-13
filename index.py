@@ -1,5 +1,6 @@
-from library import load_sample_books, list_books
+from library import load_sample_books, list_books, edit_book
 from students import add_student, list_students, borrow_book
+
 
 def main():
     load_sample_books()
@@ -10,7 +11,8 @@ def main():
         print("2. Dodaj studenta")
         print("3. Wyświetl studentów")
         print("4. Wypożycz książkę")
-        print("5. Wyjście")
+        print("5. Edytuj książkę")
+        print("6. Wyjście")
         choice = input("Wybierz opcję: ")
 
         if choice == "1":
@@ -22,6 +24,8 @@ def main():
         elif choice == "4":
             borrow_book()
         elif choice == "5":
+            edit_book()
+        elif choice == "6":
             print("Do widzenia!")
             break
         else:
