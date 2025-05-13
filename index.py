@@ -1,9 +1,15 @@
-from library import load_sample_books, list_books, edit_book, delete_book
-from students import add_student, list_students, borrow_book
+from library import list_books, edit_book, delete_book, add_book, load_sample_books
+from students import add_student, list_students, borrow_book, show_statistics, students
+from library import load_books, save_books, books
+from students import load_students, save_students
+import os
 
 
 def main():
-    load_sample_books()
+    load_books()
+    load_students()
+    print(f"📘 Wczytano {len(books)} książek, 👤 {len(students)} studentów.")
+
 
     while True:
         print("\n--- MENU GŁÓWNE ---")
@@ -11,9 +17,13 @@ def main():
         print("2. Dodaj studenta")
         print("3. Wyświetl studentów")
         print("4. Wypożycz książkę")
-        print("5. Edytuj książkę")
-        print("6. Usuń książkę")
-        print("7. Wyjście")
+        print("5. Dodaj książkę")
+        print("6. Edytuj książkę")
+        print("7. Usuń książkę")
+        print("8. Wyjście")
+        print("9. Statystyki biblioteki")
+
+
 
         choice = input("Wybierz opcję: ")
 
@@ -26,13 +36,18 @@ def main():
         elif choice == "4":
             borrow_book()
         elif choice == "5":
-            edit_book()
+            add_book()
         elif choice == "6":
-            delete_book()
+            edit_book()
         elif choice == "7":
-            print("Do widzenia!")
+            delete_book()
+        elif choice == "8":
+            save_books()
+            save_students()
+            print("✅ Dane zapisane. Do widzenia!")
             break
-
+        elif choice == "9":
+            show_statistics()
         else:
             print("❌ Nie ma takiej opcji. Spróbuj ponownie.")
 

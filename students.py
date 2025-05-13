@@ -1,7 +1,33 @@
 from classes import Student
 from library import books
+import json
+import os
 
 students = []
+
+def save_students():
+    data = []
+    for s in students:
+        data.append({
+            "id": s.id,
+            "name": s.name,
+            "borrowed_books": s.borrowed_books
+        })
+    with open("students.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+def load_students():
+    if not os.path.exists("students.json"):
+        return
+
+    with open("students.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    students.clear()
+    for item in data:
+        s = Student(item["id"], item["name"])
+        s.borrowed_books = item.get("borrowed_books", [])
+        students.append(s)
 
 def add_student():
     if len(students) >= 15:
@@ -65,3 +91,31 @@ def borrow_book():
     student.borrowed_books.append(book.id)
     book.copies -= 1
     print(f"✅ {student.name} wypożyczył(a) \"{book.title}\".")
+
+def show_statistics():
+    print("\n📊 Statystyki biblioteki")
+
+    if not students:
+        print("Brak studentów.")
+        return
+
+    top_student = max(students, key=lambda s: len(s.borrowed_books), default=None)
+
+    if top_student and top_student.borrowed_books:
+        print(f"👤 Najwięcej wypożyczeń: {top_student.name} ({len(top_student.borrowed_books)} książek)")
+    else:
+        print("👤 Brak wypożyczeń wśród studentów.")
+
+    borrow_counts = {}
+
+    for s in students:
+        for book_id in s.borrowed_books:
+            borrow_counts[book_id] = borrow_counts.get(book_id, 0) + 1
+
+    if borrow_counts:
+        most_borrowed_id = max(borrow_counts, key=borrow_counts.get)
+        most_borrowed_book = next((b for b in books if b.id == most_borrowed_id), None)
+        if most_borrowed_book:
+            print(f"📚 Najczęściej wypożyczana książka: \"{most_borrowed_book.title}\" – {borrow_counts[most_borrowed_id]} razy")
+    else:
+        print("📚 Żadna książka nie została wypożyczona.")

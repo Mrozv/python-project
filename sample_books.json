@@ -1,0 +1,177 @@
+[
+  {
+    "author": "Adam Mickiewicz",
+    "title": "Pan Tadeusz",
+    "year": 1834,
+    "pages": 340,
+    "copies": 5
+  },
+  {
+    "author": "Henryk Sienkiewicz",
+    "title": "Quo Vadis",
+    "year": 1896,
+    "pages": 520,
+    "copies": 4
+  },
+  {
+    "author": "Bolesław Prus",
+    "title": "Lalka",
+    "year": 1890,
+    "pages": 680,
+    "copies": 3
+  },
+  {
+    "author": "Stefan Żeromski",
+    "title": "Syzyfowe prace",
+    "year": 1897,
+    "pages": 260,
+    "copies": 6
+  },
+  {
+    "author": "Eliza Orzeszkowa",
+    "title": "Nad Niemnem",
+    "year": 1888,
+    "pages": 540,
+    "copies": 3
+  },
+  {
+    "author": "Władysław Reymont",
+    "title": "Chłopi",
+    "year": 1904,
+    "pages": 960,
+    "copies": 4
+  },
+  {
+    "author": "Juliusz Słowacki",
+    "title": "Kordian",
+    "year": 1834,
+    "pages": 210,
+    "copies": 5
+  },
+  {
+    "author": "Tadeusz Dołęga-Mostowicz",
+    "title": "Znachor",
+    "year": 1937,
+    "pages": 300,
+    "copies": 4
+  },
+  {
+    "author": "Maria Konopnicka",
+    "title": "O krasnoludkach i sierotce Marysi",
+    "year": 1896,
+    "pages": 160,
+    "copies": 7
+  },
+  {
+    "author": "Bruno Schulz",
+    "title": "Sklepy cynamonowe",
+    "year": 1934,
+    "pages": 180,
+    "copies": 4
+  },
+  {
+    "author": "Witold Gombrowicz",
+    "title": "Ferdydurke",
+    "year": 1937,
+    "pages": 330,
+    "copies": 4
+  },
+  {
+    "author": "Tadeusz Borowski",
+    "title": "Pożegnanie z Marią",
+    "year": 1947,
+    "pages": 190,
+    "copies": 3
+  },
+  {
+    "author": "Stanisław Lem",
+    "title": "Solaris",
+    "year": 1961,
+    "pages": 320,
+    "copies": 6
+  },
+  {
+    "author": "Olga Tokarczuk",
+    "title": "Prawiek i inne czasy",
+    "year": 1996,
+    "pages": 280,
+    "copies": 4
+  },
+  {
+    "author": "Andrzej Sapkowski",
+    "title": "Ostatnie życzenie",
+    "year": 1993,
+    "pages": 288,
+    "copies": 7
+  },
+  {
+    "author": "Zofia Nałkowska",
+    "title": "Granica",
+    "year": 1935,
+    "pages": 270,
+    "copies": 3
+  },
+  {
+    "author": "Gustaw Herling-Grudziński",
+    "title": "Inny świat",
+    "year": 1951,
+    "pages": 340,
+    "copies": 4
+  },
+  {
+    "author": "Sławomir Mrożek",
+    "title": "Tango",
+    "year": 1964,
+    "pages": 110,
+    "copies": 5
+  },
+  {
+    "author": "Edward Stachura",
+    "title": "Siekierezada",
+    "year": 1971,
+    "pages": 180,
+    "copies": 4
+  },
+  {
+    "author": "Dorota Masłowska",
+    "title": "Wojna polsko-ruska pod flagą biało-czerwoną",
+    "year": 2002,
+    "pages": 250,
+    "copies": 5
+  },
+  {
+    "author": "Wisława Szymborska",
+    "title": "Sto pociech",
+    "year": 1967,
+    "pages": 90,
+    "copies": 3
+  },
+  {
+    "author": "Rafał Wojaczek",
+    "title": "Nie skończona krucjata",
+    "year": 1972,
+    "pages": 120,
+    "copies": 3
+  },
+  {
+    "author": "Tomasz Mann",
+    "title": "Śmierć w Wenecji",
+    "year": 1912,
+    "pages": 110,
+    "copies": 4
+  },
+  {
+    "author": "Jan Kochanowski",
+    "title": "Treny",
+    "year": 1580,
+    "pages": 80,
+    "copies": 6
+  },
+  {
+    "author": "Czesław Miłosz",
+    "title": "Zniewolony umysł",
+    "year": 1953,
+    "pages": 290,
+    "copies": 5
+  }
+]

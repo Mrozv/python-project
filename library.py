@@ -1,10 +1,50 @@
 from classes import Book
+import json
+import os
 
-books = []
+books = [] 
 
 def load_sample_books():
-    for i in range(1, 26):
-        books.append(Book(i, f"Autor {i}", f"Tytuł {i}", 2000 + i % 20, 100 + i, 3))
+    books.clear()
+    try:
+        with open('sample_books.json', 'r', encoding='utf-8') as f:
+            sample_books = json.load(f)
+            for i, b in enumerate(sample_books, 1):
+                book = Book(i, b["author"], b["title"], b["year"], b["pages"], b["copies"])
+                books.append(book)
+            print("📚 Załadowano przykładowe książki z pliku.")
+    except FileNotFoundError:
+        print("❌ Plik 'sample_books.json' nie został znaleziony.")
+    except json.JSONDecodeError:
+        print("⚠️ Błąd w pliku JSON.")
+
+
+def save_books():
+    data = [vars(b) for b in books]
+    with open("books.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+def load_books():
+    # Jeśli plik nie istnieje – załaduj przykładowe książki
+    if not os.path.exists("books.json"):
+        load_sample_books()
+        save_books()
+        return
+
+    with open("books.json", "r", encoding="utf-8") as f:
+        try:
+            data = json.load(f)
+            if not data:
+                raise ValueError("Pusty plik")
+        except (json.JSONDecodeError, ValueError):
+            print("⚠️ Plik books.json uszkodzony lub pusty. Ładowanie przykładowych książek.")
+            load_sample_books()
+            save_books()
+            return
+
+    books.clear()
+    for item in data:
+        books.append(Book(**item))
 
 def list_books():
     print("\n📚 Lista książek:")
@@ -85,4 +125,31 @@ def delete_book():
         print("✅ Książka została usunięta.")
     else:
         print("⛔ Usuwanie anulowane.")
+
+def add_book():
+    print("\n➕ Dodawanie nowej książki:")
+
+    title = input("Tytuł: ").strip()
+    if not title:
+        print("❌ Tytuł nie może być pusty.")
+        return
+
+    author = input("Autor: ").strip()
+    if not author:
+        print("❌ Autor nie może być pusty.")
+        return
+
+    try:
+        year = int(input("Rok wydania: "))
+        pages = int(input("Liczba stron: "))
+        copies = int(input("Liczba egzemplarzy: "))
+    except ValueError:
+        print("❌ Rok, liczba stron i egzemplarzy muszą być liczbami.")
+        return
+
+    book_id = books[-1].id + 1 if books else 1
+    new_book = Book(book_id, author, title, year, pages, copies)
+    books.append(new_book)
+
+    print(f"✅ Dodano książkę: \"{title}\" (ID: {book_id})")
 
