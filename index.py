@@ -2,7 +2,6 @@ from library import list_books, edit_book, delete_book, add_book, load_sample_bo
 from students import add_student, list_students, borrow_book, show_statistics, students
 from library import load_books, save_books, books
 from students import load_students, save_students
-import os
 
 
 def main():
