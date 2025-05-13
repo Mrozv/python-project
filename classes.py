@@ -11,4 +11,8 @@ class Student:
     def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.borrowed_books = []  # lista książek wypożyczonych
+        self.borrowed_books = []
+
+    def can_borrow(self):
+        return len(self.borrowed_books) < 5
+
