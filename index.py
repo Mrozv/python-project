@@ -1,8 +1,7 @@
 from library import list_books, edit_book, delete_book, add_book, load_sample_books
 from students import add_student, list_students, borrow_book, show_statistics, students
 from library import load_books, save_books, books
-from students import load_students, save_students
-
+from students import load_students, save_students, remind_returns
 
 def main():
     load_books()
@@ -21,6 +20,7 @@ def main():
         print("7. Usuń książkę")
         print("8. Wyjście")
         print("9. Statystyki biblioteki")
+        print("10. Przypomnienia o zwrotach książek")
 
 
 
@@ -47,6 +47,8 @@ def main():
             break
         elif choice == "9":
             show_statistics()
+        elif choice == "10":
+            remind_returns()
         else:
             print("❌ Nie ma takiej opcji. Spróbuj ponownie.")
 

@@ -8,10 +8,10 @@ class Book:
         self.copies = copies
 
 class Student:
-    def __init__(self, id, name):
+    def __init__(self, id, name, borrowed_books=None):
         self.id = id
         self.name = name
-        self.borrowed_books = []
+        self.borrowed_books = borrowed_books or [] 
 
     def can_borrow(self):
         return len(self.borrowed_books) < 5

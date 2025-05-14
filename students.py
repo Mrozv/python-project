@@ -1,7 +1,8 @@
 from classes import Student
-from library import books
+from library import books, list_books
 import json
 import os
+from datetime import datetime, timedelta
 
 students = []
 
@@ -53,69 +54,87 @@ def list_students():
             print(f"{s.id}. {s.name} – wypożyczone książki: {len(s.borrowed_books)}")
 
 def borrow_book():
-    if not students:
-        print("❌ Brak studentów. Dodaj najpierw studenta.")
-        return
-
     list_students()
     try:
-        sid = int(input("Podaj ID studenta: "))
-        student = next((s for s in students if s.id == sid), None)
-        if not student:
-            print("❌ Nie znaleziono studenta.")
-            return
+        student_id = int(input("\nPodaj ID studenta: "))
     except ValueError:
         print("❌ Błąd: ID musi być liczbą.")
         return
 
-    if not student.can_borrow():
-        print("❌ Ten student wypożyczył już 5 książek.")
+    student = next((s for s in students if s.id == student_id), None)
+    if not student:
+        print("❌ Student nie istnieje.")
         return
 
-    from library import list_books
     list_books()
     try:
-        bid = int(input("Podaj ID książki do wypożyczenia: "))
-        book = next((b for b in books if b.id == bid), None)
-        if not book:
-            print("❌ Nie znaleziono książki.")
-            return
+        book_id = int(input("Podaj ID książki do wypożyczenia: "))
     except ValueError:
         print("❌ Błąd: ID musi być liczbą.")
         return
 
-    if book.copies <= 0:
-        print("❌ Brak dostępnych egzemplarzy tej książki.")
+    book = next((b for b in books if b.id == book_id), None)
+    if not book or book.copies <= 0:
+        print("❌ Książka niedostępna.")
         return
 
-    student.borrowed_books.append(book.id)
+    # Sprawdź, czy student już ma tę książkę
+    if any(b["book_id"] == book_id for b in student.borrowed_books):
+        print("📛 Już wypożyczono tę książkę.")
+        return
+
+    borrowed_at = datetime.today()
+    due_date = borrowed_at + timedelta(days=7)  # np. 7 dni na zwrot
+
+    student.borrowed_books.append({
+        "book_id": book_id,
+        "borrowed_at": borrowed_at.strftime("%Y-%m-%d"),
+        "due_date": due_date.strftime("%Y-%m-%d")
+    })
     book.copies -= 1
-    print(f"✅ {student.name} wypożyczył(a) \"{book.title}\".")
+
+    print(f"✅ Książka wypożyczona do: {due_date.strftime('%Y-%m-%d')}")
+
 
 def show_statistics():
     print("\n📊 Statystyki biblioteki")
 
-    if not students:
-        print("Brak studentów.")
-        return
-
-    top_student = max(students, key=lambda s: len(s.borrowed_books), default=None)
-
-    if top_student and top_student.borrowed_books:
-        print(f"👤 Najwięcej wypożyczeń: {top_student.name} ({len(top_student.borrowed_books)} książek)")
-    else:
-        print("👤 Brak wypożyczeń wśród studentów.")
+    most_active = max(students, key=lambda s: len(s.borrowed_books), default=None)
+    if most_active:
+        print(f"👤 Najwięcej wypożyczeń: {most_active.name} ({len(most_active.borrowed_books)} książek)")
 
     borrow_counts = {}
-
-    for s in students:
-        for book_id in s.borrowed_books:
+    for student in students:
+        for borrowed in student.borrowed_books:
+            book_id = borrowed["book_id"]
             borrow_counts[book_id] = borrow_counts.get(book_id, 0) + 1
 
     if borrow_counts:
-        most_borrowed_id = max(borrow_counts, key=borrow_counts.get)
-        most_borrowed_book = next((b for b in books if b.id == most_borrowed_id), None)
-        if most_borrowed_book:
-            print(f"📚 Najczęściej wypożyczana książka: \"{most_borrowed_book.title}\" – {borrow_counts[most_borrowed_id]} razy")
-    else:
-        print("📚 Żadna książka nie została wypożyczona.")
+        most_common_id = max(borrow_counts, key=borrow_counts.get)
+        most_common_book = next((b for b in books if b.id == most_common_id), None)
+        if most_common_book:
+            print(f"📘 Najczęściej wypożyczana książka: \"{most_common_book.title}\" ({borrow_counts[most_common_id]} razy)")
+
+
+def remind_returns():
+    print("\n🔔 Przypomnienia o zwrotach książek:\n")
+    today = datetime.today().date()
+    found = False
+
+    for student in students:
+        for record in student.borrowed_books:
+            due_date = datetime.strptime(record["due_date"], "%Y-%m-%d").date()
+            days_left = (due_date - today).days
+            book = next((b for b in books if b.id == record["book_id"]), None)
+            if not book:
+                continue
+
+            if days_left < 0:
+                print(f"❌ {student.name} spóźniony z oddaniem \"{book.title}\" ({abs(days_left)} dni po terminie).")
+                found = True
+            elif days_left <= 2:
+                print(f"⚠️ {student.name} musi oddać \"{book.title}\" za {days_left} dni.")
+                found = True
+
+    if not found:
+        print("✅ Brak zaległych lub nadchodzących terminów.")
