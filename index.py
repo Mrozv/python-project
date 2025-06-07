@@ -18,9 +18,9 @@ def main():
         print("5. Dodaj książkę")
         print("6. Edytuj książkę")
         print("7. Usuń książkę")
-        print("8. Wyjście")
-        print("9. Statystyki biblioteki")
-        print("10. Przypomnienia o zwrotach książek")
+        print("8. Statystyki biblioteki")
+        print("9. Przypomnienia o zwrotach książek")
+        print("10. Wyjście")
 
 
 
@@ -41,14 +41,14 @@ def main():
         elif choice == "7":
             delete_book()
         elif choice == "8":
+            show_statistics()
+        elif choice == "9":
+            remind_returns()
+        elif choice == "10":
             save_books()
             save_students()
             print("✅ Dane zapisane. Do widzenia!")
             break
-        elif choice == "9":
-            show_statistics()
-        elif choice == "10":
-            remind_returns()
         else:
             print("❌ Nie ma takiej opcji. Spróbuj ponownie.")
 
