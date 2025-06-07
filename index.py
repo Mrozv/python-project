@@ -1,4 +1,4 @@
-from library import list_books, edit_book, delete_book, add_book, load_sample_books
+from library import list_books, edit_book, delete_book, add_book
 from students import add_student, list_students, borrow_book, show_statistics, students
 from library import load_books, save_books, books
 from students import load_students, save_students, remind_returns
@@ -21,8 +21,6 @@ def main():
         print("8. Statystyki biblioteki")
         print("9. Przypomnienia o zwrotach książek")
         print("10. Wyjście")
-
-
 
         choice = input("Wybierz opcję: ")
 

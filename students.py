@@ -78,13 +78,12 @@ def borrow_book():
         print("❌ Książka niedostępna.")
         return
 
-    # Sprawdź, czy student już ma tę książkę
     if any(b["book_id"] == book_id for b in student.borrowed_books):
         print("📛 Już wypożyczono tę książkę.")
         return
 
     borrowed_at = datetime.today()
-    due_date = borrowed_at + timedelta(days=7)  # np. 7 dni na zwrot
+    due_date = borrowed_at + timedelta(days=7)
 
     student.borrowed_books.append({
         "book_id": book_id,

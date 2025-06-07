@@ -1,6 +1,7 @@
 from classes import Book
 import json
 import os
+from students import students
 
 books = [] 
 
@@ -25,7 +26,6 @@ def save_books():
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 def load_books():
-    # Jeśli plik nie istnieje – załaduj przykładowe książki
     if not os.path.exists("books.json"):
         load_sample_books()
         save_books()
@@ -94,7 +94,6 @@ def edit_book():
 
     print("✅ Książka została zaktualizowana.")
 
-from students import students  # potrzebne do sprawdzania wypożyczeń
 
 def delete_book():
     if not books:
@@ -113,7 +112,6 @@ def delete_book():
         print("❌ Nie znaleziono książki.")
         return
 
-    # Sprawdź, czy książka jest wypożyczona przez jakiegoś studenta
     borrowed_by_any = any(book_id in s.borrowed_books for s in students)
     if borrowed_by_any:
         print("❌ Nie można usunąć książki – jest aktualnie wypożyczona.")
