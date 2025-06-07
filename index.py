@@ -8,7 +8,6 @@ def main():
     load_students()
     print(f"📘 Wczytano {len(books)} książek, 👤 {len(students)} studentów.")
 
-
     while True:
         print("\n--- MENU GŁÓWNE ---")
         print("1. Wyświetl wszystkie książki")
