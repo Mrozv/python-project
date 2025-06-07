@@ -1,7 +1,6 @@
 from classes import Book
 import json
 import os
-from students import students
 
 books = [] 
 
@@ -94,6 +93,7 @@ def edit_book():
 
     print("✅ Książka została zaktualizowana.")
 
+from students import students
 
 def delete_book():
     if not books:
